@@ -19,11 +19,11 @@
         }
 
         #quizBox {
-            position: relative; /* 让小鸟只相对于题目区域定位 */
+            position: relative;
         }
 
         #question-container {
-            background-image: url('lulu.jpg?v=1');
+            background-image: url('lulu.jpg?v=2');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -38,19 +38,17 @@
             justify-content: center;
         }
 
-        /* 题目：墨绿色 + 无阴影 */
         #question {
             color: #004d26;
             font-size: 26px;
             font-weight: bold;
         }
 
-        /* 小鸟：只在题目区右下角、更大 */
         .bird-in-quiz {
             position: absolute;
             right: 10px;
             bottom: 10px;
-            width: 120px; /* 更大的小鸟 */
+            width: 120px;
             height: auto;
             pointer-events: none;
             z-index: 10;
@@ -95,19 +93,16 @@
 </head>
 
 <body>
-    <!-- 做题页面 -->
     <div id="quizBox">
         <div id="question-container">
             <h2 id="question"></h2>
         </div>
 
-        <!-- 小鸟：只在题目页面显示 -->
         <img src="lulu.jpg" class="bird-in-quiz">
 
         <div id="options"></div>
     </div>
 
-    <!-- 结果页面（小鸟不会进来） -->
     <div id="resultBox">
         <h2>你的测试结果：<span id="typeResult"></span></h2>
         <img id="resultImg" style="width:300px;">
