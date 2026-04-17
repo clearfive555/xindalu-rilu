@@ -16,12 +16,13 @@
             padding: 20px;
             max-width: 600px;
             margin: 0 auto;
-            position: relative;
-            min-height: 100vh;
+        }
+
+        #quizBox {
+            position: relative; /* 让小鸟只相对于题目区域定位 */
         }
 
         #question-container {
-            position: relative;
             background-image: url('lulu.jpg?v=1');
             background-size: cover;
             background-position: center;
@@ -42,6 +43,17 @@
             color: #004d26;
             font-size: 26px;
             font-weight: bold;
+        }
+
+        /* 小鸟：只在题目区右下角、更大 */
+        .bird-in-quiz {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 120px; /* 更大的小鸟 */
+            height: auto;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .option {
@@ -79,32 +91,23 @@
             color: white;
             border: none;
         }
-
-        /* —————————— 小鸟：固定页面右下角 + 更大 —————————— */
-        .fixed-bird {
-            position: fixed;
-            right: 15px;
-            bottom: 15px;
-            width: 120px;  /* 更大的小鸟！可自己改大小 */
-            height: auto;
-            z-index: 999;
-            pointer-events: none;
-        }
     </style>
 </head>
 
 <body>
-
-    <!-- 小鸟：固定在整个页面右下角 -->
-    <img src="lulu.jpg" class="fixed-bird" alt="鹭鹭">
-
+    <!-- 做题页面 -->
     <div id="quizBox">
         <div id="question-container">
             <h2 id="question"></h2>
         </div>
+
+        <!-- 小鸟：只在题目页面显示 -->
+        <img src="lulu.jpg" class="bird-in-quiz">
+
         <div id="options"></div>
     </div>
 
+    <!-- 结果页面（小鸟不会进来） -->
     <div id="resultBox">
         <h2>你的测试结果：<span id="typeResult"></span></h2>
         <img id="resultImg" style="width:300px;">
@@ -130,6 +133,9 @@
     let currentQ = 0;
 
     function showQ() {
+        document.getElementById("quizBox").style.display = "block";
+        document.getElementById("resultBox").style.display = "none";
+        
         const q = questions[currentQ];
         document.getElementById("question").innerText = q.q;
         const optionsEl = document.getElementById("options");
@@ -158,8 +164,6 @@
 
     function restart() {
         currentQ = 0;
-        document.getElementById("quizBox").style.display = "block";
-        document.getElementById("resultBox").style.display = "none";
         showQ();
     }
 
