@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试你的鹭格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "微软雅黑", sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #question-container {
+            position: relative;
+            background-image: url('lulu.jpg?v=1');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 200px;
+            padding: 40px 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 题目：墨绿色 + 无阴影 */
+        #question {
+            color: #004d26;
+            font-size: 26px;
+            font-weight: bold;
+            margin-right: 100px;
+        }
+
+        .corner-bird {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: #fff;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        #resultBox {
+            text-align: center;
+            display: none;
+        }
+
+        #resultBox h2 {
+            font-size: 36px;
+        }
+
+        #descResult {
+            font-size: 28px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        #resultBox button {
+            font-size: 24px;
+            padding: 15px 30px;
+            border-radius: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="quizBox">
+    <div id="question-container">
+        <h2 id="question"></h2>
+        <img src="lulu.jpg" class="corner-bird" alt="小鸟">
+    </div>
+    <div id="options"></div>
+</div>
+
+<div id="resultBox">
+    <h2>你的测试结果：<span id="typeResult"></span></h2>
+    <img id="resultImg" style="width:300px;">
+    <p id="descResult"></p>
+    <button onclick="restart()">重新测试</button>
+</div>
+
+<script>
+    const questions = [
+        { q: "你更喜欢哪种状态？", a: [{ text: "热闹开心" }, { text: "安静放松" }] },
+        { q: "做决定时你更？", a: [{ text: "凭感觉" }, { text: "仔细思考" }] },
+        { q: "你觉得自己更像？", a: [{ text: "乐观开朗" }, { text: "沉稳内敛" }] },
+        { q: "你更喜欢在什么时候放空思绪？", a: [{ text: "路上" }, { text: "家里" }, { text: "洗手间" }, { text: "随时" }] },
+        { q: "你更喜欢做什么？", a: [{ text: "创作" }, { text: "思考" }, { text: "什么也不做" }] },
+        { q: "你更喜欢什么？", a: [{ text: "薯条" }, { text: "意义" }, { text: "一切" }, { text: "都一样" }] },
+        { q: "你更想成为什么？", a: [{ text: "自己" }, { text: "一只鸟" }, { text: "没有" }, { text: "所有" }] }
+    ];
+
+    const FIXED_TYPE = "RILU";
+    const FIXED_DESC = "你的鹭格是日鹭，你无需为自己定性，你就是你自己，一直在探索，一直在改变，你可以成为所有，也可以什么都不是";
+    const FIXED_IMG = "rilu.jpg";
+
+    let currentQ = 0;
+
+    function showQ() {
+        const q = questions[currentQ];
+        document.getElementById("question").innerText = q.q;
+        const optionsEl = document.getElementById("options");
+        optionsEl.innerHTML = "";
+
+        q.a.forEach(option => {
+            const btn = document.createElement("button");
+            btn.className = "option";
+            btn.innerText = option.text;
+            btn.onclick = () => {
+                currentQ++;
+                if (currentQ >= questions.length) showResult();
+                else showQ();
+            };
+            optionsEl.appendChild(btn);
+        });
+    }
+
+    function showResult() {
+        document.getElementById("quizBox").style.display = "none";
+        document.getElementById("resultBox").style.display = "block";
+        document.getElementById("typeResult").innerText = FIXED_TYPE;
+        document.getElementById("descResult").innerText = FIXED_DESC;
+        document.getElementById("resultImg").src = FIXED_IMG;
+    }
+
+    function restart() {
+        currentQ = 0;
+        document.getElementById("quizBox").style.display = "block";
+        document.getElementById("resultBox").style.display = "none";
+        showQ();
+    }
+
+    showQ();
+</script>
+
+</body>
+</html>
