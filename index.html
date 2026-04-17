@@ -18,24 +18,39 @@
             margin: 0 auto;
         }
 
-        /* 题目背景 + 完美自适应 */
-        #question {
-            background-image: url('lulu.jpg');
+        #question-container {
+            position: relative;
+            background-image: url('lulu.jpg?v=1');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             width: 100%;
-            min-height: 180px;
+            min-height: 200px;
             padding: 40px 20px;
             border-radius: 15px;
             margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 0 10px rgba(0,0,0,0.7);
-            font-size: 24px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* 题目：墨绿色 + 无阴影 */
+        #question {
+            color: #004d26;
+            font-size: 26px;
+            font-weight: bold;
+            margin-right: 100px;
+        }
+
+        .corner-bird {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .option {
@@ -77,9 +92,11 @@
 </head>
 
 <body>
-
 <div id="quizBox">
-    <h2 id="question"></h2>
+    <div id="question-container">
+        <h2 id="question"></h2>
+        <img src="lulu.jpg" class="corner-bird" alt="小鸟">
+    </div>
     <div id="options"></div>
 </div>
 
