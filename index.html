@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>测试你的鹭格</title>
+    <style>
+        body {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 20px;
+            font-family: "微软雅黑", sans-serif;
+        }
+        .option {
+            display: block;
+            margin: 12px 0;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #fff;
+            font-size: 16px;
+        }
+        .option:hover {
+            background: #f0f5ff;
+        }
+        #resultBox {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="quizBox">
+        <h2 id="question"></h2>
+        <div id="options"></div>
+        <p id="progress"></p>
+    </div>
+
+    <div id="resultBox">
+        <h2>你的测试结果是：<span id="typeResult"></span></h2>
+        <!-- 下面这行是图片，可加可不加 -->
+        <img id="resultImg" style="width:300px;">
+        <p id="descResult"></p>
+        <button onclick="restart()">重新测试</button>
+    </div>
+
+    <script>
+        // ====================== 题目区：你可以随便改 ======================
+        const questions = [
+            {
+                q: "你更喜欢哪种状态？",
+                a: [
+                    { text: "热闹开心" },
+                    { text: "安静放松" }
+                ]
+            },
+            {
+                q: "做决定时你更？",
+                a: [
+                    { text: "凭感觉" },
+                    { text: "仔细思考" }
+                ]
+            },
+            {
+                q: "你觉得自己更像？",
+                a: [
+                    { text: "乐观开朗" },
+                    { text: "沉稳内敛" }
+                ]
+            }
+        ];
+
+        // ====================== 【重点】固定结果：改这里就可以！======================
+        const FIXED_TYPE = "RILU";          // 固定人格类型
+        const FIXED_DESC = "你的鹭格是日鹭，你无需为自己定性，你就是你自己，一直在探索，一直在改变"; // 固定文案
+        const FIXED_IMG = "rilu.jpg";       // 固定图片
+
+        // ====================== 下面代码不用动 ======================
+        let currentQ = 0;
+        const quizBox = document.getElementById("quizBox");
+        const resultBox = document.getElementById("resultBox");
+        const questionEl = document.getElementById("question");
+        const optionsEl = document.getElementById("options");
+        const progressEl = document.getElementById("progress");
+        const typeResultEl = document.getElementById("typeResult");
+        const descResultEl = document.getElementById("descResult");
+        const resultImg = document.getElementById("resultImg");
+
+        function showQ() {
+            const q = questions[currentQ];
+            questionEl.innerText = q.q;
+            progressEl.innerText = `进度：${currentQ + 1}/${questions.length}`;
+            optionsEl.innerHTML = "";
+
+            q.a.forEach(option => {
+                const btn = document.createElement("button");
+                btn.className = "option";
+                btn.innerText = option.text;
+                btn.onclick = function() {
+                    currentQ++;
+                    if (currentQ >= questions.length) showResult();
+                    else showQ();
+                };
+                optionsEl.appendChild(btn);
+            });
+        }
+
+        // 固定结果展示
+        function showResult() {
+            quizBox.style.display = "none";
+            resultBox.style.display = "block";
+            typeResultEl.innerText = FIXED_TYPE;
+            descResultEl.innerText = FIXED_DESC;
+            resultImg.src = FIXED_IMG;
+        }
+
+        function restart() {
+            currentQ = 0;
+            quizBox.style.display = "block";
+            resultBox.style.display = "none";
+            showQ();
+        }
+
+        showQ();
+    </script>
+</body>
+</html>
