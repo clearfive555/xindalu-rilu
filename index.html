@@ -22,11 +22,9 @@
             position: relative;
         }
 
+        /* 已彻底删除背景鸟！只用干净底色 */
         #question-container {
-            background-image: url('lulu.jpg?v=2');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: #ffffff;
             width: 100%;
             min-height: 200px;
             padding: 40px 20px;
@@ -44,6 +42,7 @@
             font-weight: bold;
         }
 
+        /* 只保留右下角这一只鸟 */
         .bird-in-quiz {
             position: absolute;
             right: 10px;
@@ -98,6 +97,7 @@
             <h2 id="question"></h2>
         </div>
 
+        <!-- 唯一的小鸟 -->
         <img src="lulu.jpg" class="bird-in-quiz">
 
         <div id="options"></div>
